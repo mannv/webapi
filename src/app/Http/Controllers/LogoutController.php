@@ -16,7 +16,7 @@ class LogoutController extends BaseController
      */
     public function destroy()
     {
-        auth()->logout(true);
+        auth()->logout();
         return $this->successResponse([
             'logout' => true,
             'message' => 'logout successful'

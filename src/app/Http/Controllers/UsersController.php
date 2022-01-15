@@ -77,7 +77,7 @@ class UsersController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param string $id
+     * @param string $email
      *
      * @return \Illuminate\Http\Response
      *
@@ -141,7 +141,7 @@ class UsersController extends BaseController
 
     /**
      * Check if the email belongs to the current person or not
-     * @param $email
+     * @param string $email
      * @return bool
      */
     private function verifyEmail($email)
