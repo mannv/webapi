@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    volumes:
+      - ${LARAVEL_CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+    depends_on:
+      - php-fpm
+      - mysql
+    ports:
+      - "${NGINX_PORT}:80"
+  php-fpm:
+    build:
+      context: ./php-fpm
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+        - ARG_PHP_VERSION=${PHP_VERSION}
+    volumes:
+      - ${LARAVEL_CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+      - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
+  mysql:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/app.cnf:/etc/mysql/conf.d/app.cnf
+      - ./mysql/initdb.d/:/docker-entrypoint-initdb.d/
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql
+    ports:
+      - "${PHPMYADMIN_PORT}:80"
+    volumes:
+      - ./phpmyadmin/config.ini:/usr/local/etc/php/conf.d/phpmyadmin.ini
+volumes:
+  mysql-data:
+    driver: local
