@@ -16,5 +16,11 @@
 });*/
 
 Route::post('user', 'UsersController@store');
-Route::get('user/{email}', 'UsersController@show');
-Route::put('user/{email}', 'UsersController@update');
+Route::post('login', 'LoginController@store');
+
+Route::group([
+    'middleware' => 'auth:api',
+], function () {
+    Route::get('user/{email}', 'UsersController@show');
+    Route::put('user/{email}', 'UsersController@update');
+});

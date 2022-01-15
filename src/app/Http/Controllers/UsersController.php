@@ -7,6 +7,7 @@ use App\Validators\UserValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -85,6 +86,10 @@ class UsersController extends BaseController
     public function show($email)
     {
         try {
+            if (!$this->verifyEmail($email)) {
+                return $this->errorResponse('Forbidden', Response::HTTP_FORBIDDEN);
+            }
+
             $user = $this->repository->find($email);
 
             return $this->successResponse($user);
@@ -99,13 +104,13 @@ class UsersController extends BaseController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param string $id
+     * @param string $email
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $email)
     {
         try {
             $params = $request->only([
@@ -115,9 +120,14 @@ class UsersController extends BaseController
                 'tel',
                 'gender'
             ]);
+
+            if (!$this->verifyEmail($email)) {
+                return $this->errorResponse('Forbidden', Response::HTTP_FORBIDDEN);
+            }
+
             $this->validator->with($params)->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($params, $id);
+            $user = $this->repository->update($params, $email);
 
             return $this->successResponse($user);
         } catch (ModelNotFoundException $e) {
@@ -127,5 +137,16 @@ class UsersController extends BaseController
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Check if the email belongs to the current person or not
+     * @param $email
+     * @return bool
+     */
+    private function verifyEmail($email)
+    {
+        $user = Auth::user();
+        return $user->email == $email;
     }
 }

@@ -30,7 +30,7 @@ class UserValidator extends LaravelValidator
             ],
             ValidatorInterface::RULE_UPDATE => [
                 'name' => 'nullable',
-                'age' => 'integer|min:1|max:70',
+                'age' => 'nullable|integer|min:1|max:70',
                 'address' => 'nullable',
                 'tel' => 'nullable',
                 'gender' => 'nullable|in:' . implode(',', [User::GENDER_FEMALE, User::GENDER_MALE])
