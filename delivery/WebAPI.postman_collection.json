@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "438b6ea2-003c-47b0-8762-48d805126b8b",
+		"name": "WebAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "mannv7@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abc123123",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "mannv",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "51",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Hoai Duc - Ha Noi",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "0904488452",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "0",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/user",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "mannv22221",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "25",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Hoai Duc - Ha Noi 2",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "09044884522",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "1",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/user/mannv7@gmail.com",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"mannv7@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/user/mannv7@gmail.com",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"mannv7@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "mannv7@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abc123123",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/logout",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
