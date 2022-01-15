@@ -23,4 +23,5 @@ Route::group([
 ], function () {
     Route::get('user/{email}', 'UsersController@show');
     Route::put('user/{email}', 'UsersController@update');
+    Route::delete('logout', 'LogoutController@destroy');
 });
